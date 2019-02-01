@@ -1,0 +1,101 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define o 100005
+#define MOD 1000000007
+#define pb push_back
+#define mp make_pair
+#define mem(a,b) memset(a,(b),sizeof(a))
+#define lpo(a) for(int i=0;i<a;i++)
+#define loop(a,x) for(int i=a;i<x;i++)
+#define srt(x) sort(x.begin(),x.end())
+#define all(x) x.begin(),x.end()
+const ll MAX=1000000000000000001;
+typedef pair<int,int> pii;
+char a[101][101];
+int vis[101][101];
+int n,m;
+int row[8] = {-1,0,1,1,-1, -1,0, 1},col[8] = {-1,-1,-1,0,0,1, 1, 1};
+ 
+int check(int x, int y) { return (x >= 0 && y >= 0 && x < n && y < m && !vis[x][y]); }
+string che={"ALLIZZWELL"};
+
+int dfs(int x,int y,int cnt)
+{
+	if(cnt==9)
+	{
+		return 1;
+	}
+	if(cnt>9)
+	{
+		return 0;
+	}
+	vis[x][y]=1;
+	int ans=0;
+	for(int i=0;i<8;i++)
+	{
+		if(check(x+row[i],y+col[i]))
+		{
+			if(a[x+row[i]][y+col[i]]==che[cnt+1])
+			{
+				vis[x+row[i]][y+col[i]]=1;
+				ans=dfs(x+row[i],y+col[i],cnt+1);
+			}
+		}
+		if(ans==1)
+		{
+			return ans;
+		}
+	}
+	vis[x][y]=0;
+	return ans;
+
+}
+int main() 
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		cin>>n>>m;
+		mem(vis,0);
+		for(int i=0;i<n;i++)
+			for(int j=0;j<m;j++)
+			{
+				cin>>a[i][j];
+			}
+
+		int flag=0,ans=0;
+		for(int i=0;i<n;i++)
+		{
+			for(int j=0;j<m;j++)
+			{
+				if(vis[i][j]==0)
+				{
+					if(a[i][j]=='A')
+					{
+						flag=dfs(i,j,0);
+					}
+				}
+				if(flag==1)
+				{
+					ans=1;
+					break;
+				}
+			}
+			if(ans==1)
+			{
+				break;
+			}
+		}
+		if(ans==0)
+		{
+			cout<<"NO";
+		}
+		else
+			cout<<"YES";
+		cout<<"\n";
+	}
+}
