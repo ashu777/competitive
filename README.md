@@ -1,2 +1,2 @@
 # competitive
-codes of questions of different coding sites
+Solutions of cp problems
