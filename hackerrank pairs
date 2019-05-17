@@ -1,0 +1,19 @@
+int pairs(int k, vector<int> a) {
+
+int n=a.size();
+unordered_map<int,int> mp,mp1;
+for(int i=0;i<n;i++)
+{
+    mp[a[i]]++;
+}
+for(int i=0;i<n;i++)
+{
+    mp1[a[i]]=mp[a[i]+k]++;
+}
+int sum=0;
+for(auto it=mp1.begin();it!=mp1.end();it++)
+{
+    sum+=it->second;
+}
+return sum;
+}
